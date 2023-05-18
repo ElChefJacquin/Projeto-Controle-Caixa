@@ -34,7 +34,9 @@ salvar.addEventListener("click", function(){
     quantidadea.push(quantidade.value);
     nomea.push(nome.value);
     precoa.push(preco.value);
-    ArmazenarDadosXYZ(nomea, precoa, quantidadea);
+    localStorage.setItem("quantidade", String(quantidadea));
+    localStorage.setItem("preco", String(precoa));
+    localStorage.setItem("nome", String(nomea));
 });
 
 //Transformar string em array
@@ -50,8 +52,8 @@ let linha, celulapreco, celulanome, celulaquantidade, celulaedit, celulaexcluir;
 
   for (let i = 0; i<precot.length; i++) {
     linha = table.insertRow();
-    celulapreco = linha.insertCell();
     celulanome = linha.insertCell();
+    celulapreco = linha.insertCell();
     celulaquantidade = linha.insertCell();
     celulanome.innerHTML = nomet[i];
     celulapreco.innerHTML = precot[i];
@@ -111,12 +113,12 @@ function excluir(pos) {
 }
 
 function ArmazenarDados () {
-    localStorage.setItem("nome", String(nomea));
-    localStorage.setItem("preco", String(precoa));
-    localStorage.setItem("quantidade", String(quantidadea));
+    localStorage.setItem("nome", String(nomet));
+    localStorage.setItem("preco", String(precot));
+    localStorage.setItem("quantidade", String(quantidadet));
 }
-function ArmazenarDadosXYZ (X, Y, Z) {
-  localStorage.setItem("nome", String(X));
-  localStorage.setItem("preco", String(Y));
-  localStorage.setItem("quantidade", String(Z));
+function ArmazenarDadosXY () {
+  localStorage.setItem("nome", String(nomet));
+  localStorage.setItem("preco", String(precot));
+  localStorage.setItem("quantidade", String(quantidadet));
 }
