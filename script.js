@@ -37,6 +37,7 @@ salvar.addEventListener("click", function(){
     localStorage.setItem("quantidade", String(quantidadea));
     localStorage.setItem("preco", String(precoa));
     localStorage.setItem("nome", String(nomea));
+    window.location.reload()
 });
 
 //Transformar string em array
