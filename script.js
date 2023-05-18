@@ -108,6 +108,7 @@ function excluir(pos) {
     celulaexcluir.innerHTML = ""
     console.log(quantidadet)
     ArmazenarDados();
+    window.location.reload()
   } else {
     return;
   }
