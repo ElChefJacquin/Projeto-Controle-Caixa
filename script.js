@@ -1,4 +1,7 @@
+//Declarar o 2 botões principais
+
 var salvar = document.getElementById("salvar");
+var clear = document.getElementById("Clear")
 let quantidadea, nomea, precoa, novo;
 
 // verificar se há dados salvos no localStorage
@@ -18,6 +21,8 @@ if (localStorage.getItem("quantidade") && localStorage.getItem("nome") && localS
 let nome, preco, quantidade;
 let precot, nomet, quantidadet;
 
+//Se novo for falso, ou seja, se há algo no array, ele irá puxar do localstorage e transformar a string em array
+
 if (novo == false) {
   precot = localStorage.getItem("preco");
   precot = precot.split(",");
@@ -26,6 +31,21 @@ if (novo == false) {
   nomet = localStorage.getItem("nome");
   nomet = nomet.split(",");
 }
+
+//Função para limpar os dados
+function limpar () {
+  if (novo == true) {
+    alert("Não há nada para limpar!")
+  } else {
+    pergunta = confirm("Realmente deseja deletar tudo?")
+    if (pergunta == true) {
+      localStorage.clear();
+      window.location.reload();
+    }
+  }
+}
+
+//Função para salvar os arquivos, como essa é mais complicada, utilizei EventListener para manipular melhor pelo JS
 
 salvar.addEventListener("click", function(){
     nome = document.getElementById("nome");
@@ -40,87 +60,60 @@ salvar.addEventListener("click", function(){
     window.location.reload()
 });
 
-//Transformar string em array
-//Tabela abaixo
+//Tabela abaixo, usei os elementos InsertRow e InsertCell para inserir os botões de excluir e etc
 
 let table = document.getElementById("tabela")
-console.log(precot);
-console.log(nomet);
-console.log(quantidadet);
-console.log(quantidadet[0]);
-
 let linha, celulapreco, celulanome, celulaquantidade, celulaedit, celulaexcluir;
 
-  for (let i = 0; i<precot.length; i++) {
-    linha = table.insertRow();
-    celulanome = linha.insertCell();
-    celulapreco = linha.insertCell();
-    celulaquantidade = linha.insertCell();
-    celulanome.innerHTML = nomet[i];
-    celulapreco.innerHTML = precot[i];
-    celulaquantidade.innerHTML = quantidadet[i];
-    celulaedit = linha.insertCell();
-    celulaexcluir = linha.insertCell();
-    celulaedit.innerHTML = `<a onclick="editar(${i});"><i class="fa-regular fa-pen-to-square" style="color: #100c58;"></a>`
-    celulaexcluir.innerHTML = '<a onclick="excluir(' + i + ');"><i class="fa-solid fa-trash" style="color: #100c58";></a>'
-  }
+for (let i = 0; i < precot.length; i++) {
+  linha = table.insertRow();
+  celulanome = linha.insertCell();
+  celulapreco = linha.insertCell();
+  celulaquantidade = linha.insertCell();
+  celulanome.innerHTML = nomet[i];
+  celulapreco.innerHTML = precot[i];
+  celulaquantidade.innerHTML = quantidadet[i];
+  celulaedit = linha.insertCell();
+  celulaexcluir = linha.insertCell();
+  celulaedit.innerHTML = `<a onclick="editar(${i});"><i class="fa-regular fa-pen-to-square" class="butoes"></a>`;
+  celulaexcluir.innerHTML = `<a onclick="excluir(${i});"><i class="fa-solid fa-trash" class="butoes"></a>`;
+}
+
+//Função para fazer a edição de um elemento da tabela de pedidos
 
 function editar(pos) {
   let nomen, precon, quantn;
   nomen = prompt("Qual nome deseja? (Em branco caso queira manter)");
-  if (nomen == "") {
-    nomen = nomet[pos]
-  } else {
+  if (nomen != "") {
     nomet.splice(pos, 1, nomen)
   }
   quantn = prompt("Qual quantidade deseja? (Em branco caso queira manter)")
-  if (quantn == "") {
-    quantn = quantidadet[pos]
-  } else {
+  if (quantn != "") {
     quantidadet.splice(pos, 1, quantn)
   }
   precon = prompt("Qual preço deseja? (Em branco caso queira manter)")
-  if (precon == "") {
-    precon = precot[pos]
-  } else {
+  if (precon != "") {
     precot.splice(pos, 1, precon)
   }
-  
-  celulanome.innerHTML = nomet[pos];
-  celulapreco.innerHTML = precot[pos];
-  celulaquantidade.innerHTML = quantidadet[pos];
-
-  localStorage.setItem("nome", String(nomet));
-  localStorage.setItem("preco", String(precot));
-  localStorage.setItem("quantidade", String(quantidadet));
+  ArmazenarDados();
+  window.location.reload()
 }
 
+//Função para excluir
 function excluir(pos) {
   confirmacao = confirm("Deseja realmente apagar este registro?");
   if (confirmacao == true) {
     nomet.splice(pos, 1);
     quantidadet.splice(pos, 1)
     precot.splice(pos, 1);
-    celulanome.innerHTML = ""
-    celulapreco.innerHTML = ""
-    celulaquantidade.innerHTML = ""
-    celulaedit.innerHTML = ""
-    celulaexcluir.innerHTML = ""
-    console.log(quantidadet)
     ArmazenarDados();
     window.location.reload()
-  } else {
-    return;
   }
 }
 
+//Função para evitar gasto excessivo de linhas na hora de salvar
 function ArmazenarDados () {
     localStorage.setItem("nome", String(nomet));
     localStorage.setItem("preco", String(precot));
     localStorage.setItem("quantidade", String(quantidadet));
-}
-function ArmazenarDadosXY () {
-  localStorage.setItem("nome", String(nomet));
-  localStorage.setItem("preco", String(precot));
-  localStorage.setItem("quantidade", String(quantidadet));
 }

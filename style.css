@@ -1,6 +1,8 @@
-:root {
-    font-family: Arial, Helvetica, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@1&family=Quicksand&family=Wix+Madefor+Display:wght@700&display=swap');
+
+/* font-family: 'Montserrat', sans-serif;
+font-family: 'Quicksand', sans-serif;
+font-family: 'Wix Madefor Display', sans-serif; */
 
 #titulo {
     margin-top: 3rem;
@@ -9,6 +11,7 @@
 
 h1 {
     text-align: center;
+    font-family: 'Wix Madefor Display', sans-serif, Arial;
 }
 
 /* table {
@@ -16,18 +19,37 @@ h1 {
     justify-content: end;
     margin-right: 15%;
 } */
+
 input {
-    width: 500px;
+    width: 20rem;
     margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif, Arial;
+    height: 1.5rem;
+    border-radius: 10px;
 }
 #container {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
+label {
+    font-family: 'Montserrat', sans-serif, Arial;
+
+}
 table {
     border-spacing: 50px 0;
+    font-family: 'Quicksand', sans-serif;
 }
 #perguntas {
     align-items: left;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        color: white;
+        background-color: black;
+    }
+    .butoes {
+        color: white;
+    }
 }
