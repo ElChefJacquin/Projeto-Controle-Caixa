@@ -92,8 +92,13 @@ function editar(pos) {
     quantidadet.splice(pos, 1, quantn)
   }
   precon = prompt("Qual preço deseja? (Em branco caso queira manter)")
-  if (precon != "") {
+  if (precon != "" && precon.includes(",") == false) {
     precot.splice(pos, 1, precon)
+  } else if (precon.includes(",")) {
+    precon = precon.replace(',', '.')
+    precot.splice(pos, 1, precon)
+  } else {
+    return;
   }
   ArmazenarDados();
   window.location.reload()
